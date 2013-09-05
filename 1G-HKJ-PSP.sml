@@ -69,4 +69,23 @@ fun powerNew(a,0) = 1
 (* Assignment 1G5 : Power with counter {{{ *)
 (* powerCount : int * int -> int * int
  * Given two ints (a,n) the function returns (a^n, <no of multiplications used)
- * Expects      : n
+ * Expects      : n *)
+(* OPGAVE 5 *)
+local
+  (* multiplications (n,i) : int *int -> int
+   * Returns no of multiplications needed to perform the power operation with
+   * powerNew.
+   * Expects    : a > 0
+   *              i = 0 *)
+  fun multiplications (0,i) = i
+    | multiplications (n,i) =
+      if   n mod 2 = 0
+      then multiplications(n div 2,i+1)
+      else multiplications(n div 2,i+2)
+in
+  (* powerCount(a,n) : int * int -> int * int 
+   * Beregner a^n og antallet af multiplikationer udført til beregningen *)
+  fun powerCount(a,n) = (powerNew(a,n),multiplications(n,0))
+end;
+(*}}}*)
+
